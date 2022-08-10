@@ -1,8 +1,8 @@
 /*Ejercicio 1
-Generar un arreglo con 20 números enteros y codificar un programa en C que permita:
-a) Indicar si alguno de los números generados es un cero.
+Generar un arreglo con 20 numeros enteros y codificar un programa en C que permita:
+a) Indicar si alguno de los numeros generados es un cero.
 b) Escribir el contenido de las componentes que se encuentren en las posiciones pares.
-c) Indicar cantidad de números pares que contiene.*/
+c) Indicar cantidad de numeros pares que contiene.*/
 
 #include <stdio.h>
 #define N 20
@@ -69,6 +69,6 @@ int main() {
 	numeroCero(arre);
 	posicionPar(arre);
 	numeroPar(arre);
-	
-	
+	getchar();
+	return 0;
 }
