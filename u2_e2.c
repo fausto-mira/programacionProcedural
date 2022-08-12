@@ -8,28 +8,24 @@ c) Contar la cantidad de vocales de la frase.*/
 #include <string.h>
 #define N 30
 
-void carga(char xfrase[N]) {
+int carga(char xfrase[N]) {
     printf("Ingrese la frase \n");
     fgets(xfrase, N, stdin);
-    return;
+    return(strlen(xfrase));
 }
 
-void reemplazo(char xfrase[N], char xfrase2[N]) {
-    int i;
-    for(i=0; i<N; i++){
-        if(xfrase[i] != '2'){
-            xfrase2[i] = xfrase[i]; 
-        }
-        else{
-            xfrase2[i] = '0';
-        }
+void reemplazo(char xfrase[N], int xcota) {
+    int i = 0;
+    while((i<xcota) && (xfrase[i] != '2')){
+        i++;
     }
-    puts(xfrase2);
+    (i<xcota) ? xfrase[i] = '0' : puts("No se encontro ningun 2");
+    puts(xfrase);
     return;
 }
 
-void copiar(char xfrase[N], char xfrase3[N]) {
-    puts(strncpy(xfrase3,xfrase,14));
+void copiar(char xfrase[N], char xfrase2[N]) {
+    puts(strncpy(xfrase2,xfrase,12));
     return;
 }
 
@@ -45,10 +41,11 @@ void contar(char frase[N]) {
 
 
 int main() {
-    char frase[N], frase2[N], frase3[N];
-    carga(frase);
-    reemplazo(frase, frase2);
-    copiar(frase, frase3);
+    char frase[N], frase2[N];
+    int cota;
+    cota = carga(frase);
+    reemplazo(frase, cota);
+    copiar(frase, frase2 );
     contar(frase);
     return 0;
 }
