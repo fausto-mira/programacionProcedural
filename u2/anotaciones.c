@@ -1,6 +1,10 @@
 #include <stdio.h>
 
 main(){
+
+	char palabra[20] = "hola mundo";
+
+	puts(palabra);
 	
 	float num = 122334.1223434;
 	printf("%10.2f", num);

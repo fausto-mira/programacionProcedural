@@ -21,34 +21,40 @@ Nota: Utilizar la estructura de datos generada en el inciso d). */
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#define N 50
-#define M 22
+#define N 5
+#define M 2
 
-typedef struct{
+typedef struct
+{
     int cod, stk;
     float prc;
-}productos;
+} productos;
 
-typedef struct{
+typedef struct
+{
     int numProv, ventas;
     char nom[M];
-}proveedores;
+} proveedores;
 
-void cargaProductos(productos xprod[N]){
+void cargaProductos(productos xprod[N])
+{
     int i;
-    for(i=0; i<N; i++){
+    for (i = 0; i < N; i++)
+    {
         puts("Ingrese codigo del producto");
         scanf("%d", &xprod[i].cod);
         puts("Ingrese precio del producto");
         scanf("%f", &xprod[i].prc);
         puts("Ingrese stock del producto");
-        scanf("%d", &xprod[i].stk);   
+        scanf("%d", &xprod[i].stk);
     }
     return;
 }
 
-void cargaProveedores(proveedores xprove[M]){
-    for(int i=0; i<M; i++){
+void cargaProveedores(proveedores xprove[M])
+{
+    for (int i = 0; i < M; i++)
+    {
         puts("Ingrese nombre del proveedor");
         scanf("%s", xprove[i].nom);
         puts("Ingrese numero de proveedor");
@@ -59,87 +65,109 @@ void cargaProveedores(proveedores xprove[M]){
     return;
 }
 
-void compras(productos xprod[N], proveedores xprove[M]){
+void compras(productos xprod[N], proveedores xprove[M])
+{
     int numProv, codProd, cantUni;
     puts("Ingrese numero de proveedor(termina con '0'");
     scanf("%d", &numProv);
-    while(numProv != 0){
+    while (numProv != 0)
+    {
         puts("Ingrese codigo del producto");
         scanf("%d", &codProd);
         puts("Ingrese cantidad de unidades compradas");
         scanf("%d", &cantUni);
-        xprod[codProd-1].stk += cantUni;
-        xprove[numProv-1001].ventas++;
+        xprod[codProd - 1].stk += cantUni;
+        xprove[numProv - 1000].ventas++;
         puts("Ingrese numero de proveedor(termina con '0'");
         scanf("%d", &numProv);
     }
     return;
 }
 
-void dineroInvertido(productos xprod[N]){
+void dineroInvertido(productos xprod[N])
+{
     int i;
-    puts("DINERO INVERTIDO ENCADA PRODUCTO");
-    for(i=0; i<N; i++){
-        printf("Productos %d: %f", i+1, (xprod[i].prc * xprod[i].stk) );
+    puts("DINERO INVERTIDO EN CADA PRODUCTO");
+    for (i = 0; i < N; i++)
+    {
+        printf("Productos %d: %.2f \n", i + 1, (xprod[i].prc * xprod[i].stk));
     }
     return;
 }
 
-int prove10(proveedores xprove[M], proveedores xprove2[M]){
-    int i, cont=0;
-    for(i=0; i<M; i++){
-        if(xprove[i].ventas > 10){
+int prove10(proveedores xprove[M], proveedores xprove2[M])
+{
+    int i, cont = 0;
+    for (i = 0; i < M; i++)
+    {
+        if (xprove[i].ventas > 10)
+        {
             xprove2[cont] = xprove[i];
             cont++;
         }
     }
-    return(cont);
+    return (cont);
 }
 
-void ordenar(proveedores xprove2[M], int xcota){
+void ordenar(proveedores xprove2[M], int xcota)
+{
     proveedores temporal;
-    for(int i=0; i<xcota; i++){
-        for(int j=0; i<xcota-i-1; i++){
-            if(strcmp(xprove2[j].nom, xprove2[j+1].nom) > 0){
+    for (int i = 0; i < xcota; i++)
+    {
+        for (int j = 0; i < xcota - i - 1; i++)
+        {
+            if (strcmp(xprove2[j].nom, xprove2[j + 1].nom) > 0)
+            {
                 temporal = xprove2[j];
-                xprove2[j] = xprove2[j+1];
-                xprove2[j+1] = temporal;
+                xprove2[j] = xprove2[j + 1];
+                xprove2[j + 1] = temporal;
             }
         }
     }
     return;
 }
 
-void mostrar(proveedores xprove2[M], int xcota){
-    for(int i=0; i<xcota; i++){
+void mostrar(proveedores xprove2[M], int xcota)
+{
+    for (int i = 0; i < xcota; i++)
+    {
         puts(xprove2[i].nom);
     }
     return;
 }
 
-int busqueda(proveedores xprove2[M], int xcota){
+int busqueda(proveedores xprove2[M], int xcota)
+{
     char busqueda[M];
-    puts("Ingrese nombre del prove a buscar");
-    fgets(busqueda, M, stdin);
-    
-    int izquierda = 0, derecha = xcota-1;
-    while(izquierda <= derecha){
-        int indiceDeLaMitad = floor((izquierda+derecha)/2);
+    //puts("Ingrese nombre del prove a buscar");
+    printf("Ingrese nombre del prove a buscar \n");
+    fflush(stdin);
+    //fgets(busqueda,M,stdin);
+    scanf("%s", busqueda);
+    int izquierda = 0, derecha = xcota - 1;
+    while (izquierda <= derecha)
+    {
+        int indiceDeLaMitad = floor((izquierda + derecha) / 2);
         char *elementoDeLaMitad = xprove2[indiceDeLaMitad].nom;
 
         int resultado = strcmp(busqueda, elementoDeLaMitad);
-        if(resultado == 0) return indiceDeLaMitad;
+        if (resultado == 0)
+            return indiceDeLaMitad;
 
-        if(resultado < 0){
+        if (resultado < 0)
+        {
             derecha = indiceDeLaMitad - 1;
-        }else{
+        }
+        else
+        {
             izquierda = indiceDeLaMitad + 1;
         }
     }
     return -1;
 }
 
-void main(){
+int main()
+{
     productos prod[N];
     proveedores prove[M], prove2[M];
     int cota, resultadoBusqueda;
@@ -151,9 +179,13 @@ void main(){
     ordenar(prove2, cota);
     mostrar(prove2, cota);
     resultadoBusqueda = busqueda(prove2, cota);
-    if(resultadoBusqueda != -1){
+    if (resultadoBusqueda != -1)
+    {
         printf("El elemento se encontro en la posicion %d", resultadoBusqueda);
-    }else{
+    }
+    else
+    {
         puts("No se encontro el prove ingresado");
     }
+    return 0;
 }
