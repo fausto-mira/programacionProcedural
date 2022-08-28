@@ -34,7 +34,7 @@ void inicializar(articulo xventas[n])
         scanf("%s", nombre);
         strcpy(xventas[i].nombre, nombre);
         puts("Ingrese precio del producto");
-        scanf("%d", &xventas[i].precio);
+        scanf("%f", &xventas[i].precio);
         puts("Ingrse stock");
         scanf("%d", &xventas[i].stock);
         xventas[i].vendidos = 0;
@@ -127,7 +127,7 @@ void ordenar(articulo xventas[n])
         bandera = 0;
         for (j = 0; j < n - 1; j++)
         {
-            if (xventas[j - 1].stock < xventas[j].stock)
+            if (xventas[j].stock < xventas[j + 1].stock)
             {
                 aux = xventas[j - 1];
                 xventas[j - 1] = xventas[j];
