@@ -90,9 +90,10 @@ void ordenar(ventas xarre[N])
     int bandera = 1;
     for (int i = 0; i < N - 1; i++)
     {
+        bandera = 0;
         for (int j = 0; j < N - 1 - i; j++)
         {
-            if (arre[j].cant > arre[j + 1].cant)
+            if (xarre[j].cant > xarre[j + 1].cant)
             {
                 bandera = 1;
                 aux = xarre[j];
@@ -100,7 +101,7 @@ void ordenar(ventas xarre[N])
                 xarre[j + 1] = aux;
             }
         }
-        if (bandera)
+        if (bandera == 0)
             break;
     }
     return;
@@ -109,11 +110,16 @@ void ordenar(ventas xarre[N])
 void totalUnidades(ventas xarre[N])
 {
     ordenar(xarre);
+    int;
 
-    for (int i = 20; i <= 50; i++)
+    for (int i = 0; i < N; i++)
     {
-        printf("Producto")
+        if (xarre[i].cant >= 20 && xarre[i].cant <= 50)
+        {
+            printf("Codigo %d vendio unidades: %d \n", xarre[i].codigo, xarre[i].cant);
+        }
     }
+    return;
 }
 
 int main()

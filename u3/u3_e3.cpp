@@ -117,7 +117,7 @@ void ordenar(ventas xarre[M][N])
                     band = 1;
                 }
             }
-            if (band == 0)
+            if (band == false)
                 break;
         }
     }
