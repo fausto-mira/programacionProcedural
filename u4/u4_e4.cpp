@@ -141,6 +141,7 @@ void masMenos(lenguajes xarre[], int n, int &contMenor, int &contMayor)
 
 int masMenos(lenguajes xarre[], int n, int contMenor, int &contMayor)
 {
+    contMenor = 0;
     if (n < N)
     {
         if (xarre[n - 1].cont < 5000)
@@ -163,8 +164,8 @@ int main()
     mayor4000(arre, N);
     masElegido(arre, N, 0, -1);
     total(arre, N, 0);
-    int contMenor = 0, contMayor = 0;
-    masMenos(arre, N, contMenor, contMayor);
+    int contMenor, contMayor = 0;
+    contMenor = masMenos(arre, N, contMenor, contMayor);
     printf("Menos de 5000: %d. Mas de 9000: %d\n\n", contMenor, contMayor);
     return 0;
 }
