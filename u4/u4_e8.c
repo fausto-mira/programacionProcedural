@@ -39,11 +39,23 @@ int sumaDiagonal(int xtabla[N][N])
     return (xtabla[0][0] + xtabla[1][1] + xtabla[2][2]);
 }
 
+int sumaDiagonalDos(int xtabla[N][N], int n, int suma)
+{
+    if (n < N)
+    {
+        suma += xtabla[n][n];
+        return sumaDiagonalDos(xtabla, n + 1, suma);
+    }
+    else
+        return suma;
+}
+
 int main()
 {
     int tabla[N][N];
     inicializar(tabla, 0, 0);
     mostrar(tabla, 0, 0);
-    printf("\n Suma de la diagonales: %d", sumaDiagonal(tabla));
+    printf("\n Suma de la diagonales: %d \n\n", sumaDiagonal(tabla));
+    printf("\n Suma de la diagonales: %d \n\n", sumaDiagonalDos(tabla, 0, 0));
     return 0;
 }

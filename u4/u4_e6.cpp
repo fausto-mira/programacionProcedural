@@ -22,11 +22,27 @@ int busqueda(int xarre[N], int n, int &mayor, int igualesMayor)
     return 0;
 }
 
+void busquedaDos(int xarre[N], int n, int &mayor)
+{
+    if (n < N)
+    {
+        if (xarre[n] > mayor)
+            mayor = xarre[n];
+
+        busquedaDos(xarre, n + 1, mayor);
+
+        if (xarre[n] == mayor)
+            printf("pos: %d es igual al mayor \n", n);
+    }
+}
+
 int main()
 {
     int arre[N] = {1, 2, 6, 4, 5, 6};
     int mayor = 0, igualesMayor;
     igualesMayor = busqueda(arre, 0, mayor, 0);
     printf("\n\nMayor: %d. Cant de n iguales al mayor: %d \n\n", mayor, igualesMayor);
+    mayor = 0;
+    busquedaDos(arre, 0, mayor);
     return 0;
 }
