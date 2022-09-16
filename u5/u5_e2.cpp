@@ -56,7 +56,7 @@ void cargaBoxeadores(boxeador *&arr, int N, int n, char cate)
 // Para una categoría determinada, mostrar los DNI de los boxeadores que tienen el peso máximo. Generar una
 // estructura auxiliar.
 
-int buscarMaximo(boxeador *&arr, int N)
+/*int buscarMaximo(boxeador *&arr, int N)
 {
     float max = 0;
     for (int i = 0; i < N; i++)
@@ -67,17 +67,6 @@ int buscarMaximo(boxeador *&arr, int N)
         }
     }
     return max;
-}
-
-int contadorMaximo(boxeador *&arr, int N, float max)
-{
-    int cont = 0;
-    for (int i = 0; i < N; i++)
-    {
-        if (arr[i].peso == max)
-            ++cont;
-    }
-    return cont;
 }
 
 void pesoMaximo(boxeador *&arr, int N, boxeador *&arrPeso, char cate)
@@ -92,6 +81,32 @@ void pesoMaximo(boxeador *&arr, int N, boxeador *&arrPeso, char cate)
         if (arr[i].peso == maximo && arr[i].categoria == cate)
             arrPeso[j] = arr[i];
     }
+} */
+
+int contadorMaximo(boxeador *&arr, int N)
+{
+    int cont = 0;
+    for (int i = 0; i < N; i++)
+    {
+        if (arr[i].peso == 90)
+            ++cont;
+    }
+    return cont;
+}
+
+int pesoMaximo(boxeador *&arr, int N, boxeador *&subArr, char cate)
+{
+    int cantMax = contadorMaximo(arr, N), cont = 0;
+    subArr = (boxeador *)malloc(sizeof(boxeador) * cantMax);
+    for (int i = 0; i < N; i++)
+    {
+        if (arr[i].peso == 90)
+        {
+            subArr[cont] = arr[i];
+            cont++;
+        }
+    }
+    return cont;
 }
 
 int main()
@@ -102,5 +117,7 @@ int main()
     scanf("%d", &cantParticipantes);
     array = (boxeador *)malloc(sizeof(boxeador) * cantParticipantes);
 
-    return 0;
+    cargaBoxeadores(array, cantParticipantes, 0, )
+
+        return 0;
 }
