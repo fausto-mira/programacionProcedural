@@ -12,10 +12,11 @@ typedef nodo *puntero;
 int main()
 {
     puntero cabeza;
+    cabeza = NULL;
     int num;
 
     puts("Inrgese numero para guardar en la lista (finaliza con -1)");
-    scand("%d", &num);
+    scanf("%d", &num);
     while (num != -1)
     {
     }
