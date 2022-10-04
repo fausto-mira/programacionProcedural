@@ -15,6 +15,7 @@ Nota: Para cada ítem emplear al menos una función recursiva.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #define T 10
 
 typedef struct nodo
@@ -132,23 +133,137 @@ void eliminarInscripto(titulo xtuto[T])
     eliminarNodo(xtuto[numTitulo - 1].ins, NULL, NULL, dni);
 }
 
-void mostrar(puntero cabeza)
+void totalDeInscriptos(puntero cabeza, int total)
+{
+    if (cabeza != NULL)
+    {
+        total += 1;
+        totalDeInscriptos(cabeza->sig, total);
+    }
+    else
+    {
+        printf("Total de inscriptos: %d", total);
+    }
+}
+
+void total(titulo xtutoriales[T])
+{
+    int num;
+    puts("Ingrese numero de tutorial para mostrar total de inscriptos");
+    scanf("%d", &num);
+    printf("Tutorial %s, ", xtutoriales[num - 1].nom);
+    totalDeInscriptos(xtutoriales[num - 1].ins, 0);
+}
+
+// Dado el DNI de una persona, informar el/los tutoriales (número y título) en los que se inscribió.
+
+void busqueda(titulo xtutoriales[T], puntero cabeza, int dni, int i)
+{
+    if (i < T)
+    {
+        if (cabeza != NULL)
+        {
+            if (cabeza->dni == dni)
+            {
+                printf("Inscripto en el tutorial %s \n", xtutoriales[i].nom);
+            }
+            busqueda(xtutoriales, cabeza->sig, dni, i);
+        }
+        else
+            busqueda(xtutoriales, xtutoriales[i + 1].ins, dni, i + 1);
+    }
+}
+
+void buscarPersona(titulo xtutoriales[T])
+{
+    int dni;
+    puts("Ingrese DNI para buscar en que tutoriales se inscribio");
+    scanf("%d", &dni);
+    busqueda(xtutoriales, xtutoriales[0].ins, dni, 0);
+}
+
+void mostrarLista(puntero cabeza)
 {
     if (cabeza != NULL)
     {
         printf("%d  ", cabeza->dni);
-        mostrar(cabeza->sig);
+        mostrarLista(cabeza->sig);
     }
+}
+
+void liberarNodo(puntero &cabeza, puntero p)
+{
+    if (cabeza != NULL)
+    {
+        p = cabeza;
+        cabeza = cabeza->sig;
+        free(p);
+        liberarNodo(cabeza, NULL);
+    }
+}
+
+void liberar(titulo xtutoriales[T])
+{
+    for (int i = 0; i < T; i++)
+    {
+        liberarNodo(xtutoriales[i].ins, NULL);
+    }
+}
+
+void menu()
+{
+    puts("CONGRESO DE INFORMATICA");
+    puts("Ingrese accion a realizar:");
+    puts("1) Carga de tutoriales");
+    puts("2) Carga Inscriptos");
+    puts("3) Eliminar Inscriptos");
+    puts("4) Mostrar total de inscriptos en un tutorial");
+    puts("5) Buscar inscripcion/es por DNI");
+    puts("6) Mostrar tutoriales \n");
+    puts("0) Finalizar el programa\n");
+    printf("Opcion: ");
 }
 
 int main()
 {
     titulo tutoriales[T];
-    cargaTutoriales(tutoriales, 0);
+    int opcion;
+    do
+    {
+        menu();
+        scanf("%d", &opcion);
+        switch (opcion)
+        {
+        case 1:
+            cargaTutoriales(tutoriales, 0);
+            break;
+        case 2:
+            cargaIncriptos(tutoriales);
+            break;
+        case 3:
+            eliminarInscripto(tutoriales);
+            break;
+        case 4:
+            total(tutoriales);
+            break;
+        case 5:
+            buscarPersona(tutoriales);
+            break;
+        case 6:
+            total(tutoriales);
+            break;
+
+        case 0:
+            liberar(tutoriales);
+            system("clear");
+            puts("Ki otsu kete user-chan :)");
+            sleep(3);
+        default:
+            puts("Opcion Incorrecta");
+        }
+    } while (opcion != 0);
+
     mostrarTutos(tutoriales, 0);
-    cargaIncriptos(tutoriales);
-    mostrar(tutoriales[0].ins);
-    eliminarInscripto(tutoriales);
-    mostrar(tutoriales[0].ins);
+
     return 0;
 }

@@ -17,7 +17,7 @@ typedef struct boxeador
 {
     long int dni;
     char categoria;
-    float peso;
+    int peso;
 
 } boxeador;
 
@@ -47,7 +47,7 @@ void cargaBoxeadores(boxeador *&arr, int N, int n, char cate)
         puts("Ingrese DNI del boxeador");
         scanf("%ld", &arr[n].dni);
         puts("Ingrese peso del boxeador (47-90)");
-        scanf("%f", &arr[n].peso);
+        scanf("%d", &arr[n].peso);
         printf("\n\n");
         cargaBoxeadores(arr, N, n + 1, cate);
     }
@@ -109,15 +109,43 @@ int pesoMaximo(boxeador *&arr, int N, boxeador *&subArr, char cate)
     return cont;
 }
 
+void inicializarPesos(int xpesos[43])
+{
+    for (int i = 0; i < 43; i++)
+        xpesos[i] = 0;
+}
+
+void contadorPorPeso(boxeador *&arr, int N, int xpesos[43])
+{
+    for (int i = 0; i < N; i++)
+        xpesos[arr[i].peso - 47] += 1;
+}
+
+void mostrarPorPeso(int xpesos[43])
+{
+    puts("CANTIDAD DE INSCRIPTOS POR PESO");
+    for (int i = 0; i < 43; i++)
+        printf("Cantidad en peso %d: %d\n", i + 47, xpesos[i]);
+}
+
 int main()
 {
-    int cantParticipantes;
-    boxeador *array;
+    int cantParticipantes, cantParticipantesSubArray, pesos[43];
+    char cate;
+    boxeador *array, *subArray;
     puts("Ingrese cantidad de participantes");
     scanf("%d", &cantParticipantes);
     array = (boxeador *)malloc(sizeof(boxeador) * cantParticipantes);
 
-    cargaBoxeadores(array, cantParticipantes, 0, )
+    cargaBoxeadores(array, cantParticipantes, 0, 'x');
 
-        return 0;
+    puts("Ingrese categoria para buscar cantidad de peso maximo");
+    scanf("%c", &cate);
+    cantParticipantesSubArray = pesoMaximo(array, cantParticipantes, subArray, cate);
+
+    inicializarPesos(pesos);
+    contadorPorPeso(array, cantParticipantes, pesos);
+    mostrarPorPeso(pesos);
+
+    return 0;
 }

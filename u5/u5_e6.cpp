@@ -197,6 +197,25 @@ void cantPeteribi(puntero cabeza, char nombre[10])
     }
 }
 
+void liberarNodo(puntero &cabeza, puntero p)
+{
+    if (cabeza != NULL)
+    {
+        p = cabeza;
+        cabeza = cabeza->sig;
+        free(p);
+        liberarNodo(cabeza, NULL);
+    }
+}
+
+void liberar(pais xpaises[P])
+{
+    for (int i = 0; i < P; i++)
+    {
+        liberarNodo(xpaises[i].cabeza, NULL);
+    }
+}
+
 int main()
 {
     pais paises[P];
@@ -208,6 +227,7 @@ int main()
     peteribi200(paises[1].cabeza);
     cantPeteribi(paises[0].cabeza, paises[0].pais);
     cantPeteribi(paises[1].cabeza, paises[1].pais);
+    liberar(paises);
     getchar();
     return 0;
 }
