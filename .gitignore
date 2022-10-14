@@ -15,3 +15,7 @@
 #!/**/
 #!*.*
 
+#Excluir archivos .dat y .txt
+*.dat
+*.txt
+

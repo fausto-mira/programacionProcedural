@@ -96,6 +96,17 @@ void liberar(puntero &cabeza, puntero p)
     }
 }
 
+/*
+void liberar(puntero &cabeza, puntero p)
+{
+    if (cabeza != NULL)
+    {
+        liberar(cabeza->sig, NULL);
+        free(cabeza);
+    }
+}
+*/
+
 int main()
 {
     puntero cabeza, p;
