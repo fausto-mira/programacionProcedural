@@ -16,7 +16,7 @@ void cargarPorCabeza(puntero &cabeza) // insercion por cabeza
     scanf("%d", &x);
     while (x != 0)
     {
-        puntero nuevo, aux, anterior;
+        puntero nuevo;
         nuevo = (puntero)malloc(sizeof(struct nodo)); // creo un nuevo nodo
         nuevo->dato = x;                              // guardo el dato en el nuevo nodo
         nuevo->sig = cabeza;                          // le asigno la cabeza al nuevo nodo
@@ -85,7 +85,7 @@ void mostrar(puntero cabeza)
     }
 }
 
-void liberar(puntero &cabeza, puntero p)
+/*void liberar(puntero &cabeza, puntero p)
 {
     if (cabeza != NULL)
     {
@@ -94,18 +94,16 @@ void liberar(puntero &cabeza, puntero p)
         free(p);
         liberar(cabeza, NULL);
     }
-}
+}*/
 
-/*
-void liberar(puntero &cabeza, puntero p)
+void liberar(puntero &cabeza)
 {
     if (cabeza != NULL)
     {
-        liberar(cabeza->sig, NULL);
+        liberar(cabeza->sig);
         free(cabeza);
     }
 }
-*/
 
 int main()
 {
@@ -116,7 +114,7 @@ int main()
     // cargaPorCola(cabeza);
     cargaPorColaRecursivo(cabeza, 0);
     mostrar(cabeza);
-    liberar(cabeza, p);
+    liberar(cabeza);
     mostrar(cabeza);
     printf("\n\n");
     return 0;

@@ -131,6 +131,6 @@ int main()
     par(cabeza);
 
     liberar(cabeza, NULL);
-
+    cabeza = NULL;
     return 0;
 }
