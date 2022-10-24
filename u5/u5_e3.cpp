@@ -14,57 +14,15 @@ c) Mostrar el mapa de memoria, después de ejecutar la función que carga los da
 #include <stdlib.h>
 #define N 5
 
-typedef struct adjadicatario
+typedef struct adjudicatario
 {
-    long int dni;
+    double dni;
     float monto;
 } adjudicatario;
 
-typedef struct planes
-{
-    int cant;
-    adjudicatario *array;
-} plan;
-
-void carga(plan xplanes[N])
-{
-    int n;
-    for (int i = 0; i < N; i++)
-    {
-        printf("Ingrese cantidad de cantidad de ajudicatarios plan N°%d \n", i + 1);
-        scanf("%d", &n);
-        xplanes[i].array = (adjudicatario *)malloc(sizeof(adjudicatario) * n);
-        xplanes[i].cant = n;
-        for (int j = 0; j < n; j++)
-        {
-            printf("Ingrese DNI y monto adeudado adjudicatario N°%d \n", j + 1);
-            scanf("%ld", xplanes[i].array->dni + j);
-            scanf("%f", xplanes[i].array->monto + j);
-        }
-    }
-    return;
-}
-
-void mostrar(plan xplanes[N], int i, int j)
-{
-    if (i < N)
-    {
-        printf("Plan N°%d:      \n", i + 1);
-        if (j < xplanes[i].cant)
-        {
-            printf("Adjudicatario N°%d  DNI: %ld  Monto: %f \n", j + 1, xplanes[i].array->dni + j, xplanes[i].array->monto + j);
-            mostrar(xplanes, i, j + 1);
-        }
-        mostrar(xplanes, i + 1, 0);
-    }
-}
-
-int busqueda;
-
 int main()
 {
-    plan planes[N];
-    carga(planes);
-    mostrar(planes, 0, 0);
+    adjudicatario array[N];
+
     return 0;
 }
