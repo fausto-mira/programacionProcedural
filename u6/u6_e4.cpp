@@ -13,7 +13,8 @@ d) Agregar un nuevo libro al archivo.
 
 #include <stdio.h>
 #include <string.h>
-#define N 500
+#include <stdlib.h>
+#define N 3
 
 typedef char cadena[30];
 
@@ -28,17 +29,19 @@ void carga(FILE *arch)
     libro p;
     fpos_t x;
     int cod;
+    fseek(arch, 0, SEEK_END);
+
     for (int i = 0; i < N; i++)
     {
-        fseek(arch, 0, SEEK_END);
         fgetpos(arch, &x);
-        cod = (int)(x / sizeof(libro)) + N;
-        p.cod = cod;
-        printf("Libro codigo: %d \n", p.cod);
+        p.cod = i + 1;
+        printf("Libro codigo: %d\n", p.cod);
         puts("Ingrese titulo de libro");
-        scanf("[^\n]s", &p.titulo);
+        getchar();
+        scanf("%s", p.titulo);
         puts("Ingrese autor de libro");
-        scanf("[^\n]s", &p.autor);
+        getchar();
+        scanf("%s", p.autor);
         puts("Ingrese cantidad de ejemplares");
         scanf("%d", &p.cant);
         fwrite(&p, sizeof(p), 1, arch);
@@ -53,8 +56,8 @@ void busquedaPorCodigo(FILE *arch)
     int pos;
     puts("Ingrese codigo a buscar");
     scanf("%d", &pos);
-    rewind(arch);
-    fseek(arch, pos * sizeof(libro), SEEK_SET);
+    // rewind(arch);
+    fseek(arch, (pos - 1) * sizeof(p), SEEK_SET);
     fread(&p, sizeof(p), 1, arch);
     printf("Titulo: %s. Cantidad de ejemplares: %d \n", p.titulo, p.cant);
 }
@@ -66,7 +69,8 @@ void buscarPorTitulo(FILE *arch)
     libro p;
     cadena titulo;
     puts("Ingrese titulo del libro a buscar");
-    scanf("[^\n]s", &titulo);
+    getchar();
+    scanf("%[^\n]s", titulo);
 
     rewind(arch);
     while (fread(&p, sizeof(p), 1, arch))
@@ -87,7 +91,8 @@ void buscarLibrosDeAutor(FILE *arch)
     libro p;
     cadena autor;
     puts("Ingrese autor para buscar sus libros");
-    scanf("[^\n]s", &autor);
+    getchar();
+    scanf("%[^\n]s", autor);
 
     rewind(arch);
     while (fread(&p, sizeof(p), 1, arch))
@@ -113,9 +118,11 @@ void cargarUnLibro(FILE *arch)
 
     printf("Libro codigo: %d \n", p.cod);
     puts("Ingrese titulo de libro");
-    scanf("[^\n]s", &p.titulo);
+    getchar();
+    scanf("%[^\n]s", p.titulo);
     puts("Ingrese autor de libro");
-    scanf("[^\n]s", &p.autor);
+    getchar();
+    scanf("%[^\n]s", p.autor);
     puts("Ingrese cantidad de ejemplares");
     scanf("%d", &p.cant);
     fwrite(&p, sizeof(p), 1, arch);
@@ -123,7 +130,7 @@ void cargarUnLibro(FILE *arch)
 
 void menu()
 {
-    puts("BIBLIOTECA 'LA RE CONCHA DE TU MADRE'\n");
+    puts("BIBLIOTECA 'MESSI D10S'\n");
     puts("1) Carga secuencial de la biblioteca");
     puts("2) Buscar por codigo de libro");
     puts("3) Buscar por titulo");
@@ -159,19 +166,19 @@ int seleccion(int opcion, FILE *arch)
     return 1;
 }
 
-void abrirArchivo(FILE *arch)
-{
-    arch = fopen("biblioteca.dat", "a+");
-    if (arch == NULL)
-        puts("Error al intentar abrir el archivo 'operaciones.dat'");
-}
-
 int main()
 {
     FILE *archivo;
     int a;
 
-    abrirArchivo(archivo);
+    archivo = fopen("titulos.dat", "a+");
+    if (archivo == NULL)
+    {
+        puts("Error al intentar abrir el archivo 'titulo.dat'");
+        exit(1);
+    }
+    else
+        puts("Archivo abierto exitosamente");
 
     do
     {
